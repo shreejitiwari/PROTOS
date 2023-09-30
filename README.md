@@ -1,1 +1,1 @@
-This is an AI applications repository
+# This is an AI applications repository
