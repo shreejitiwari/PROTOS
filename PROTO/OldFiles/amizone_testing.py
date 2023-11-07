@@ -4,12 +4,15 @@ from datetime import datetime
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
+import chrome_driver_updater 
+
 
 
 
 class amizone:
     def __init__(self) -> None:
-        self.driver =  webdriver.Chrome(ChromeDriverManager().install())
+        chrome_driver_updater.update()
+        self.driver =  webdriver.Chrome("D:\ChromeDriver\chromedriver.exe")
         self.login_done = False
         self.on_home_page = False
         self.attendance_on = False
@@ -47,8 +50,6 @@ class amizone:
         home_button.send_keys(Keys.ENTER)
         time.sleep(3)
         self.remove_popup()
-        # self.login_done = True
-        # self.on_home_page = True
 
     def show_time_table(self,day = str(datetime.now().strftime("%A"))):
         timetable_button = self.driver.find_element(By.CSS_SELECTOR, "#M10")
@@ -125,11 +126,10 @@ while True :
         elif not amz.on_home_page:
             amz.go_home()
 
-    if 'attendance' in command:
+    if 'attendance' in command and 'close' not in command:
         if not amz.login_done:
             amz.login_to_amizone()
             time.sleep(5)
-            # amz.remove_popup()
             # time.sleep(3)
             # on_home_page = True
 
@@ -139,12 +139,14 @@ while True :
         if not amz.attendance_on:
             amz.show_attendance()    
 
+        time.sleep(15)
+        amz.close_attendance()
             # attendance off 
 
     if any(['id' in command, 'identity' in command, 'card' in command, 'i\'d' in command]):
         if not amz.login_done:
             amz.login_to_amizone()
-            time.sleep(5)
+            time.sleep(10)
             # amz.remove_popup()
             # time.sleep(3)
             # on_home_page = True
@@ -165,6 +167,14 @@ while True :
         if not amz.on_home_page:
             amz.go_home()
         amz.show_faculty()
+
+    
+    if all(['close' in command, 'attendance' in command]):
+        try:
+            amz.close_attendance()
+        except:
+            pass
+
         
 
 

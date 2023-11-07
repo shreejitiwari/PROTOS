@@ -4,14 +4,15 @@ from datetime import datetime
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
+import chrome_driver_updater
 
-
+chrome_driver_updater.update()
 
 LOGIN_TRUE = 0
 
 def login_to_amizone():
     global driver
-    driver = webdriver.Chrome(ChromeDriverManager().install())
+    driver = webdriver.Chrome("D:\ChromeDriver\chromedriver.exe")
     driver.maximize_window()
 
     driver.get("https://s.amizone.net/")
@@ -23,6 +24,7 @@ def login_to_amizone():
     amizone_password.send_keys("49da32")
     login_button = driver.find_element(By.CLASS_NAME, "login100-form-btn")
     login_button.send_keys(Keys.ENTER)
+    global LOGIN_TRUE
     LOGIN_TRUE = 1
 
 def remove_popup():
