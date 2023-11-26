@@ -87,11 +87,24 @@ class amizone:
         self.on_home_page = False
 
 
+    def parse_faculty(self):
+        self.show_faculty()
+        time.sleep(3)
+        FL = self.driver.find_element_by_xpath('/html/body/div[3]/div/div[2]/div/div/div[2]')
+        faculty = FL.find_elements(By.TAG_NAME , 'subject')
+        for item in faculty:
+            item.click()
+            time.sleep(2)
+            
+
+
 
 
 # MAIN
 
 amz = amizone()
+
+'''
 while True :
     command = input("Enter your command : ").lower()
 
@@ -104,10 +117,10 @@ while True :
 
     if any(end_conditions):
         amz.close_browser()
-        print('''
+        print(\'''
         Okay Boss ..!!
         Ending the program.
-        ''')
+        \''')
         time.sleep(10)
         exit()
 
@@ -176,28 +189,9 @@ while True :
             pass
 
         
+'''
 
-
-# login_to_amizone()
-# time.sleep(3)
-# remove_popup()
-# time.sleep(3)
-# show_id()
-# show_attendance()
-# time.sleep(5)
-# close_attendance()
-# time.sleep(2)
-# show_time_table('thursday')
-# time.sleep(3)
-# show_calendar()
-# time.sleep(7)
-# show_courses()
-# time.sleep(5)
-# show_faculty()
-# time.sleep(5)
-# go_home()
-
-# show_time_table('friday')
-# time.sleep(5)
-# go_home()
-# self.driver.close()
+amz.login_to_amizone()
+time.sleep(3)
+amz.show_faculty()
+amz.parse_faculty()
