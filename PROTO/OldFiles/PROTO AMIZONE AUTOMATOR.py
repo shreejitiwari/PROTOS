@@ -28,7 +28,7 @@ def login_to_amizone():
     LOGIN_TRUE = 1
 
 def remove_popup():
-    close_popup = driver.find_element(By.CSS_SELECTOR, "#ModalPopApp > div > div > div.modal-footer > button")
+    close_popup = driver.find_element(By.CSS_SELECTOR, "#MyPopup55 > div > div > div.modal-header > button")
     close_popup.send_keys(Keys.ENTER)
 
 
